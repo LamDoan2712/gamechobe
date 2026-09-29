@@ -1,0 +1,70 @@
+/* hub.css — Góc Vui Chơi: trang chọn game (vòng quay 3D) */
+.g-hub .hub { padding-inline: 0; }
+.g-hub .hub-stage { position: absolute; inset: 0; }
+.g-hub .k-bar { padding-inline: max(16px, env(safe-area-inset-left, 0px)); pointer-events: none; }
+.g-hub .k-bar > * { pointer-events: auto; }
+.g-hub .hub-logo { margin: 0; flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; line-height: .85; pointer-events: none; }
+.g-hub .hub-logo .a { font-size: clamp(30px, 6.4vw, 54px); font-weight: 800; color: var(--accent); text-shadow: 0 4px 0 #fff, 0 7px 0 var(--edge); transform: rotate(-2deg); white-space: nowrap; }
+.g-hub .hub-logo .b { font-size: clamp(16px, 3vw, 22px); font-weight: 700; color: var(--ink-soft); letter-spacing: .1em; text-transform: uppercase; margin-top: 6px; }
+.g-hub .hub-total .badge { background: radial-gradient(circle at 35% 30%, #FFF3B0, #FFC53D 60%, #E7A21E); }
+.g-hub .hub-total .name { font-variant-numeric: tabular-nums; font-size: 20px; }
+
+.g-hub .hub-arrow {
+  position: absolute; top: 46%; width: 68px; height: 68px; border-radius: 50%; background: var(--panel); color: var(--ink);
+  display: grid; place-items: center; box-shadow: 0 6px 0 var(--edge); z-index: 2; transition: transform .1s;
+}
+.g-hub .hub-arrow svg { width: 38px; height: 38px; }
+.g-hub .hub-arrow:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--edge); }
+.g-hub .hub-arrow.prev { left: max(14px, env(safe-area-inset-left, 0px)); }
+.g-hub .hub-arrow.next { right: max(14px, env(safe-area-inset-right, 0px)); }
+
+.g-hub .hub-bottom { position: absolute; left: 0; right: 0; bottom: 14px; display: flex; flex-direction: column; align-items: center; gap: 12px; padding-inline: 16px; z-index: 2; pointer-events: none; }
+.g-hub .hub-bottom > * { pointer-events: auto; }
+.g-hub .hub-dots { display: flex; gap: 10px; }
+.g-hub .hub-dots button { width: 18px; height: 18px; border-radius: 50%; background: var(--panel); box-shadow: 0 3px 0 var(--edge); transition: transform .2s, width .2s; }
+.g-hub .hub-dots button.on { width: 40px; border-radius: 9px; background: var(--c); }
+.g-hub .hub-card {
+  width: min(560px, 100%); background: var(--panel); border-radius: 30px; padding: 14px 14px 14px 22px; box-shadow: 0 8px 0 var(--shadow);
+  display: flex; align-items: center; gap: 14px; border: 5px solid var(--c, var(--accent));
+}
+.g-hub .hub-card.swap { animation: hub-swap .4s cubic-bezier(.3,1.5,.5,1); }
+@keyframes hub-swap { from { transform: scale(.9) translateY(10px); opacity: .4; } }
+.g-hub .hub-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.g-hub .hub-name { font-size: clamp(22px, 5vw, 32px); font-weight: 800; line-height: 1.05; text-wrap: balance; }
+.g-hub .hub-desc { font-size: 17px; font-weight: 600; color: var(--ink-soft); line-height: 1.2; }
+.g-hub .hub-meta { display: flex; align-items: center; gap: 6px; font-weight: 800; font-size: 16px; color: var(--ink-soft); margin-top: 2px; }
+.g-hub .hub-meta .one svg { width: 20px; height: 20px; color: var(--sun); }
+.g-hub .hub-meta .new { background: var(--sun); color: #5A2350; border-radius: 999px; padding: 0 10px; font-size: 15px; }
+.g-hub .hub-play { min-height: 84px; padding: 0 30px; font-size: 30px; flex: none; animation: hub-breathe 1.8s ease-in-out infinite; }
+.g-hub .hub-play svg { width: 40px; height: 40px; }
+@keyframes hub-breathe { 50% { transform: scale(1.06); } }
+
+.g-hub .hub-parent { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+.g-hub .hub-parent .k-btn, .k-modal .hub-parent .k-btn { width: 100%; font-size: 20px; min-height: 60px; }
+.k-modal .hub-parent { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+.k-modal .hub-note { font-size: 15px !important; }
+
+/* điện thoại dọc: thẻ gọn hơn, nút chơi xuống dưới */
+@media (max-width: 560px) {
+  .g-hub .hub-total .txt .lv { display: none; }
+  .g-hub .hub-logo { position: absolute; left: 0; right: 0; top: 76px; }
+  .g-hub .k-bar { justify-content: space-between; }
+  .g-hub .hub-card { flex-direction: column; align-items: stretch; text-align: center; padding: 14px; gap: 10px; }
+  .g-hub .hub-meta { justify-content: center; }
+  .g-hub .hub-play { width: 100%; }
+  .g-hub .hub-arrow { top: 40%; width: 58px; height: 58px; }
+}
+/* điện thoại ngang: thẻ nằm bên phải */
+@media (min-aspect-ratio: 4/3) and (max-height: 520px) {
+  .g-hub .hub-bottom { left: auto; right: 14px; bottom: 12px; width: min(340px, 44vw); padding: 0; }
+  .g-hub .hub-card { flex-direction: column; align-items: stretch; text-align: center; padding: 12px; gap: 8px; }
+  .g-hub .hub-desc { display: none; }
+  .g-hub .hub-meta { justify-content: center; }
+  .g-hub .hub-play { min-height: 64px; font-size: 26px; }
+  .g-hub .hub-arrow.next { right: calc(min(340px, 44vw) + 28px); }
+  .g-hub .hub-logo .b { display: none; }
+}
+/* không có WebGL: vẫn chọn được bằng thẻ và mũi tên */
+.g-hub .hub.flat .hub-bottom { top: 50%; bottom: auto; transform: translateY(-50%); }
+
+@media (prefers-reduced-motion: reduce) { .g-hub .hub-play { animation: none; } }
